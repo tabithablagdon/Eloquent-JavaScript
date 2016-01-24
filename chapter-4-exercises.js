@@ -69,14 +69,12 @@ function reverseArray(array) {
 
 function reverseArrayInPlace(array) {
   var length = array.length;
-  for (var i = length - 1; i >= 0; i--) {
-    array.push(array[i]);
+  for (var i = 0; i < Math.round(length / 2); i++) {
+    var holder = array[i];
+    array[i] = array[array.length - 1 - i];
+    array[array.length - 1 - i] = holder;
   }
-  for (var j = 0; j < length; j++) {
-    array.shift();
-  }
-  return array;
- };
+};
 
 console.log(reverseArray(["A", "B", "C", "D", "F"]));
 // → ["C", "B", "A"];

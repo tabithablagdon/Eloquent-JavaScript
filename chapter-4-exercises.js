@@ -150,42 +150,28 @@ console.log(nth2(arrayToList([10, 20, 30]), 1));
 // → 20
 
 
-/* WORK IN PROGRESS Exercise 4: */
+/* Exercise 4: Write a function, deepEqual, that takes two values and returns true only if they are the same value or are objects with the same properties whose values are also equal when compared with a recursive call to deepEqual.
+
+To find out whether to compare two things by identity (use the === operator for that) or by looking at their properties, you can use the typeof operator. If it produces "object" for both values, you should do a deep comparison. But you have to take one silly exception into account: by a historical accident, typeof null also produces "object".*/
 
 function deepEqual(x, y) {
-  
-  // Checks to see if there are two objects and none are null
-  
-  if ((x || y !== null) && (typeof(x) && typeof(y) === "object")) {
-    
-  // Checks to see if the two objects have same number of properties
-  // by putting them in arrays
-    var arrayX = Object.getOwnPropertyNames(x);
-    var arrayY = Object.getOwnPropertyNames(y);    
-    if (arrayX.length !== arrayY.length) {
-      return false;
-    }
-  // Checks to see if property names are equal to each other    
-    for (var i = 0; i < arrayX.length; i++) {
-      if (arrayX[i] !== arrayY[i]) {
-        return false;
-      }
-      else {
-  // Checks to see if property values are equal to each other
-        for (var prop in x) {
-          if (x[prop] !== y[prop]){
-            return false;
-          }
-          else {  
-            deepEqual(x[prop], y[prop]);
-          }
-        }
-      }
-    }
-    
+  if (x === y) {
+    return true;
   }
-  else {
-      return (x === y);
+  if ((x || y !== null) && (typeof(x) && typeof(y) === "object")) {
+    var xProps = 0; // counts # of properties in x
+    var yProps = 0; // counts # of properties in y
+    
+    for (var prop in y) {
+      yProps += 1;
+    }
+    for (var prop in x) {
+      xProps += 1;
+      if (!(prop in y) || !(deepEqual(x[prop], y[prop]))) {
+         return false;
+      }
+    }
+    return xProps === yProps;
   }
 };
 

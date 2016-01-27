@@ -92,13 +92,11 @@ If you haven’t already, also write a recursive version of nth. */
 
 
 function arrayToList(array) {
+  var newList = null;
   for (var i = array.length - 1; i >= 0; i--) {
-    var newList = {
+    newList = {
       value: array[i],
       rest: newList
-    }
-    if (newList.rest === undefined) {
-      newList.rest = null;
     }
   }
   return newList;
@@ -128,6 +126,18 @@ function nth(list, num) {
   return newArray[num];
 };
 
+function nth2(list, num) { //recursive version
+  if (!list) {
+    return undefined;
+  }
+  else if (num === 0) {
+    return list.value;
+  }
+  else {
+    return nth2(list, num - 1);
+  }
+};
+
 console.log(arrayToList([10, 20]));
 // → {value: 10, rest: {value: 20, rest: null}}
 console.log(listToArray(arrayToList([10, 20, 30])));
@@ -136,4 +146,5 @@ console.log(prepend(10, prepend(20, null)));
 // → {value: 10, rest: {value: 20, rest: null}}
 console.log(nth(arrayToList([10, 20, 30]), 1));
 // → 20
-
+console.log(nth2(arrayToList([10, 20, 30]), 1));
+// → 20

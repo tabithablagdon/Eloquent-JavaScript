@@ -152,28 +152,32 @@ console.log(nth2(arrayToList([10, 20, 30]), 1));
 
 /* WORK IN PROGRESS Exercise 4: */
 
-// Your code here.
-
 function deepEqual(x, y) {
-  // Check to see if there are two objects and none are null
+  
+  // Checks to see if there are two objects and none are null
+  
   if ((x || y !== null) && (typeof(x) && typeof(y) === "object")) {
+    
+  // Checks to see if the two objects have same number of properties
+  // by putting them in arrays
     var arrayX = Object.getOwnPropertyNames(x);
-    var arrayY = Object.getOwnPropertyNames(y);
-    // Checking 
+    var arrayY = Object.getOwnPropertyNames(y);    
     if (arrayX.length !== arrayY.length) {
       return false;
     }
+  // Checks to see if property names are equal to each other    
     for (var i = 0; i < arrayX.length; i++) {
       if (arrayX[i] !== arrayY[i]) {
         return false;
       }
       else {
+  // Checks to see if property values are equal to each other
         for (var prop in x) {
           if (x[prop] !== y[prop]){
             return false;
           }
-          else {
-            return true;
+          else {  
+            deepEqual(x[prop], y[prop]);
           }
         }
       }

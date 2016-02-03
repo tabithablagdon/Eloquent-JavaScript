@@ -5,6 +5,8 @@ when the child is born). You can use the average function defined earlier in thi
 Note that not all the mothers mentioned in the data are themselves present in the array. The byName object, which makes it easy to 
 find a person’s object from their name, might be useful here. */
 
+// functions average and byName already provided.  Ancestry array of objects in database.
+
 function average(array) {
   function plus(a, b) { return a + b; }
   return array.reduce(plus) / array.length;
@@ -17,20 +19,15 @@ ancestry.forEach(function(person) {
 
 // Your code here.
 
-var ancestryMothers = ancestry.filter(function(p) {
-  if (p.hasOwnProperty("mother") === false || p.mother === null) {
-    return false;
-  }
-  else {
-    return true;
-  }
+var mothersAge = ancestry.map(function(per) {
+	if (per.mother === null || byName[per.mother] === undefined) {
+      return null;
+    }
+    return (per.born - byName[per.mother].born);
 });
 
-var mothersAge = ancestryMothers.map(function(per) {
-  return byName[per.mother];
-});
+console.log(parseInt(average(mothersAge.filter(function(age) {
+  return age !== null;
+}))));
 
-
-console.log(average(mothersAge));
-
-// → 31.2
+// 32

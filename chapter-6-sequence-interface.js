@@ -29,7 +29,7 @@ var RangeSeq = function(from, to) {
 RangeSeq.prototype.createSeq = function() {
   var newArray = [];
   for (var i = this.from; i <= this.to; i++) {
-  	newArray.push(i);
+    newArray.push(i);
   }
   return newArray;
 };

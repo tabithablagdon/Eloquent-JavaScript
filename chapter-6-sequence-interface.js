@@ -14,3 +14,39 @@ constructor) instead.
 
 */
 
+// Solution 1 - Interface that uses traditional iteration, not abstract
+
+var ArraySeq = function(array) {
+  this.collection = array;	
+};
+
+var RangeSeq = function(from, to) {
+  this.from = from;
+  this.to = to;
+  this.collection = this.createSeq(this.from, this.to);
+};
+
+RangeSeq.prototype.createSeq = function() {
+  var newArray = [];
+  for (var i = this.from; i <= this.to; i++) {
+  	newArray.push(i);
+  }
+  return newArray;
+};
+
+var logFive = function(obj) {
+  var length = obj.collection.length < 4 ? obj.collection.length - 1 : 4;
+  for (var i = 0; i <= length; i++) {
+    console.log(obj.collection[i]);	
+  }
+};
+
+logFive(new ArraySeq([1, 2]));
+// → 1
+// → 2
+logFive(new RangeSeq(100, 1000));
+// → 100
+// → 101
+// → 102
+// → 103
+// → 104

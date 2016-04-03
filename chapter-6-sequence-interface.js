@@ -14,7 +14,60 @@ constructor) instead.
 
 */
 
-// Solution 1 - Interface that uses traditional iteration, not abstract
+// ArraySeq Constructor
+var ArraySeq = function(array) {
+  this.collection = array;	
+  this.position = -1;
+};
+
+ArraySeq.prototype.next = function() {
+  if (this.position >= this.collection.length - 1) return false;
+  this.position++;
+  return true;
+};
+
+ArraySeq.prototype.currentNum = function() {
+  return this.collection[this.position];
+};
+
+// RangeSeq Constructor
+
+var RangeSeq = function(from, to) {
+  this.position = from - 1;
+  this.to = to;
+};
+
+RangeSeq.prototype.next = function() {
+  if (this.position >= this.to) return false;
+  this.position++;
+  return true;
+};
+
+RangeSeq.prototype.currentNum = function() {
+  return this.position;
+};
+
+// logFive function that logs first 5 values from sequence object
+
+var logFive = function(obj) {
+  for (var i = 0; i < 5; i++) {
+  	if (obj.next()) console.log(obj.currentNum());
+  }
+};
+
+logFive(new ArraySeq([1, 2]));
+// → 1
+// → 2
+logFive(new RangeSeq(100, 1000));
+// → 100
+// → 101
+// → 102
+// → 103
+// → 104
+
+
+/*
+[Alternate Solution] Sequence interfaces built using traditional iteration instead of abstract iteration
 
 var ArraySeq = function(array) {
   this.collection = array;	
@@ -44,9 +97,12 @@ var logFive = function(obj) {
 logFive(new ArraySeq([1, 2]));
 // → 1
 // → 2
+
 logFive(new RangeSeq(100, 1000));
 // → 100
 // → 101
 // → 102
 // → 103
 // → 104
+
+*/

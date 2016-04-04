@@ -17,16 +17,16 @@ var StretchCell = function(inner, width, height) {
 
 // return greater of width provided or minWidth of Text Cell object
 StretchCell.prototype.minWidth = function() { 
-  return this.inner.minWidth() > this.width ? this.inner.minWidth() : this.width;
+  return Math.max(this.inner.minWidth(), this.width);
 };
 
 // return greater of height provided or minWidth of Text Cell object
 StretchCell.prototype.minHeight = function() { 
-  return this.inner.minHeight() > this.height ? this.inner.minHeight() : this.height;
+  return Math.max(this.inner.minHeight(), this.height);
 };
 
 StretchCell.prototype.draw = function(width, height) {
-  return this.inner.draw(this.minWidth(), this.minHeight());
+  return this.inner.draw(width, height);
 };
 
 // test case
